@@ -1,6 +1,23 @@
 /* The basics */
+html {
+    position: relative;
+    min-height: 100%;
+    overflow: auto;
+}
+
 body {
-    margin: 0;
+    background: url("/assets/images/backgrounds/CC_Center_1.jpg") no-repeat fixed center;
+    background-size: cover;
+
+    min-height: 100%;
+    margin: 0 0 25px; /* bottom = footer height */
+
+    overflow-x: hidden;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
 }
 
 .top-nav {
@@ -26,4 +43,39 @@ body {
 .top-nav a.active {
     background-color: #090809;
     color: white;
+}
+
+#content {
+    margin-left: 20%;
+    margin-right: 20%;
+    background-color: white;
+
+    padding: 10px;
+
+    text-align: center;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    text-align: center;
+    color: #DE1A1A;
+}
+
+h1 {
+    size: 32pt;
+}
+
+h2 {
+    size: 28pt;
+}
+
+h3 {
+    size: 24pt
+}
+
+h4, h5, h6 {
+    size: 20pt;
+}
+
+p {
+    size: 16pt;
 }
