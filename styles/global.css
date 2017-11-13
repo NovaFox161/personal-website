@@ -61,6 +61,15 @@ button:hover {
     color: black;
 }
 
+hr {
+    color: #DE1A1A;
+    background-color: #DE1A1A;
+    border-color: transparent;
+
+    height: 1px;
+    width: 100%;
+}
+
 /* Wrappers */
 #content {
     margin-left: 20%;
