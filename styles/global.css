@@ -18,6 +18,7 @@ body {
 footer {
     position: absolute;
     bottom: 0;
+    height: 25px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -43,6 +44,21 @@ h4, h5, h6 {
 
 p {
     size: 16pt;
+}
+
+button {
+    font-size: 18px;
+    background-color: #DE1A1A;
+    color: white;
+    padding: 10px;
+    border: 2px black;
+    margin: 10px;
+    width: auto;
+    height: auto;
+}
+
+button:hover {
+    color: black;
 }
 
 /* Wrappers */
@@ -73,8 +89,6 @@ p {
     display: inline-flex;
     position: center;
     background-color: #ffffff;
-    border: #14AFC1 2px;
-    border-radius: 6px;
 }
 
 .simple-gallery-wrapper img {
