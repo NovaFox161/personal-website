@@ -5,7 +5,6 @@
 
 # User-specific stuff:
 .idea/**/tasks.xml
-.idea/dictionaries
 
 # Sensitive or high-churn files:
 .idea/**/dataSources/
