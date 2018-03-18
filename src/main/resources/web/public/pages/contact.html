@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html>
+<!--suppress HtmlUnknownTarget -->
+<html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<!--Meta stuffs-->
 		<meta charset="utf-8">
@@ -12,17 +13,16 @@
 		<title>Contact -- Nova Maday</title>
 
 		<!--Locally Hosted Files-->
-		<link rel="stylesheet" href="/src/main/resources/web/public/styles/global.css">
+		<link rel="stylesheet" href="/styles/global.css">
 	</head>
 
 	<body>
 		<div class="top-nav">
-			<a href="/src/main/resources/web/public/pages/index.html">Home</a>
-			<a href="/src/main/resources/web/public/pagesain/resources/web/public/pages/about.html">About</a>
-			<a class="active" href="/src/main/resources/web/public/pagesain/resources/web/public/pages/contact.html">Contact</a>
-			<a href="/src/main/resources/web/public/pagesain/resources/web/public/pages/art/portfolio.html">Portfolio</a>
-			<a href="/src/main/resources/web/public/pagesain/resources/web/public/pages/art/ap-studio.html">AP
-				Studio</a>
+			<a href="/">Home</a>
+			<a href="/about">About</a>
+			<a class="active" href="/contact">Contact</a>
+			<a href="/portfolio">Portfolio</a>
+			<a href="/art/ap-studio">AP Studio</a>
 			<a href="https://www.patreon.com/Novafox">Patreon</a>
 		</div>
 
@@ -37,8 +37,7 @@
 	</body>
 
 	<footer id="footer">
-		<p>© Nova Maday 2017. All rights reserved. <a
-				href="/src/main/resources/web/public/pagesain/resources/web/public/pages/policy/privacy.html">Privacy
-			Policy</a></p>
+		<p><span th:text="'© Nova Maday ' + ${year} + '. All rights reserved.'"></span><span> | </span><a
+				href="/policy/privacy">Privacy Policy</a></p>
 	</footer>
 </html>
