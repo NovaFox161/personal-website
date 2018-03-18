@@ -17,7 +17,6 @@
 
 # Gradle:
 .idea/**/gradle.xml
-.idea/**/libraries
 
 # CMake
 cmake-build-debug/
@@ -49,3 +48,4 @@ crashlytics-build.properties
 fabric.properties
 /Personal-Site.iml
 /.idea/
+/Website.iml

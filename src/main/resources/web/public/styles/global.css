@@ -6,6 +6,7 @@ html {
 }
 
 body {
+    /*noinspection CssUnknownTarget*/
     background: url("/assets/images/backgrounds/CC_Center_1.jpg") no-repeat fixed center;
     background-size: cover;
 
