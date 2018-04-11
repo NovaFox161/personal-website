@@ -88,22 +88,9 @@ public class AccountHandler {
         accounts.put(sessionId, m);
     }
 
-    public void appendAccount(Map m, String sessionId) {
-        if (accounts.containsKey(sessionId)) {
-            Map exist = accounts.get(sessionId);
-            exist.remove("lastUse");
-            exist.put("lastUse", System.currentTimeMillis());
-            exist.putAll(m);
-        } else {
-            accounts.put(sessionId, m);
-        }
-    }
-
 
     public void removeAccount(String sessionId) {
-        if (hasAccount(sessionId)) {
-            accounts.remove(sessionId);
-        }
+        accounts.remove(sessionId);
     }
 
     private void removeTimedOutAccounts() {

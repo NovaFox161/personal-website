@@ -1,7 +1,10 @@
 package com.novamaday.website.utils;
 
 import com.novamaday.website.account.AccountHandler;
+import com.novamaday.website.database.DatabaseManager;
+import com.novamaday.website.endpoints.Account;
 import com.novamaday.website.objects.SiteSettings;
+import com.novamaday.website.objects.UserAPIAccount;
 import spark.ModelAndView;
 
 import static spark.Spark.*;
@@ -21,25 +24,50 @@ public class SparkUtils {
         //Register the API Endpoints
         before("/api/*", (request, response) -> {
             if (!request.requestMethod().equalsIgnoreCase("POST")) {
-                System.out.println("Denied '" + request.requestMethod() + "' access from: " + request.ip());
+                Logger.getLogger().api("Denied '" + request.requestMethod() + "' access", request.ip());
                 halt(405, "Method not allowed");
             }
             //Check authorization
-            if (request.headers().contains("Authorization") && !request.headers("Authorization").equals("API_KEY")) {
-                //TODO: Actually check auth!!! < Just lazy right now
-                halt(401, "Unauthorized");
+            if (AccountHandler.getHandler().hasAccount(request.session().id())) {
+                //User is logged in from website, no API key needed
+                Logger.getLogger().api("API Call from website", request.ip());
+            } else {
+                //Requires "Authorization Header
+                if (request.headers().contains("Authorization")) {
+                    String key = request.headers("Authorization");
+                    UserAPIAccount acc = DatabaseManager.getManager().getAPIAccount(key);
+                    if (acc != null) {
+                        if (acc.isBlocked()) {
+                            Logger.getLogger().api("Attempted to use blocked API Key: " + acc.getAPIKey(), request.ip());
+                            halt(401, "Unauthorized");
+                        } else {
+                            //Everything checks out!
+                            acc.setUses(acc.getUses() + 1);
+                            DatabaseManager.getManager().updateAPIAccount(acc);
+                        }
+                    } else {
+                        Logger.getLogger().api("Attempted to use invalid API Key: " + key, request.ip());
+                        halt(401, "Unauthorized");
+                    }
+                } else {
+                    Logger.getLogger().api("Attempted to use API without authorization header", request.ip());
+                    halt(400, "Bad Request");
+                }
             }
             //Only accept json because its easier to parse and handle.
-				/*
-				if (!request.contentType().equalsIgnoreCase("application/json")) {
-					halt(400, "Bad Request");
-				}
-				*/
+            if (!request.contentType().equalsIgnoreCase("application/json")) {
+                halt(400, "Bad Request");
+            }
         });
 
         //API endpoints
         path("/api/v1", () -> {
             before("/*", (q, a) -> System.out.println("Received API call from: " + q.ip() + "; Host:" + q.host()));
+            path("/account", () -> {
+                post("/register", Account::register);
+                post("/login", Account::login);
+                post("/logout", Account::logout);
+            });
         });
 
         //Templates and pages...
