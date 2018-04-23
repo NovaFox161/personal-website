@@ -10,15 +10,21 @@
 		<meta property="og:url" content="https://www.novamaday.com"/>
 		<meta property="og:description" content="Nova Maday - Programmer and Photographer"/>
 		<!--meta property="og:image" content="I WILL PUT THE LOGO IN WHEN I MAKE IT SMALL"/-->
-		<title>Home -- Nova Maday</title>
+		<title>Account -- Nova Maday</title>
 
 		<!--Locally Hosted Files-->
 		<link rel="stylesheet" href="/styles/global.css">
+		<link rel="stylesheet" href="/styles/fix.css">
+		<script src="/scripts/snackbar.js"></script>
+		<script src="/scripts/account/register.js"></script>
+
+		<!--Externally hosted-->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	</head>
 
 	<body>
 		<div class="top-nav">
-			<a class="active" href="/">Home</a>
+			<a href="/">Home</a>
 			<a href="/about">About</a>
 			<a href="/contact">Contact</a>
 			<a href="/portfolio">Portfolio</a>
@@ -40,28 +46,18 @@
 		</div>
 
 		<div id="content">
-			<h1>Photographer | NOVA MADAY | Programmer</h1>
-			<h3>Combining art and code with passion</h3>
-			<div class="image-wrapper">
-				<a href="/assets/images/Nova/Nova-1.jpg">
-					<img src="/assets/images/Nova/Nova-1.jpg" alt="Nova Maday">
-				</a>
+			<div th:if="${loggedIn}">
+				<h1>My Account</h1>
+				<p>
+					More will be here, I just built this.
+				</p>
 			</div>
-
-			<div>
-				<h3>Connect with Me!</h3>
-
-				<a style="text-decoration: none;" href="https://www.instagram.com/novafox161">
-					<button>Instagram</button>
-				</a>
-				<a style="text-decoration: none;" href="https://github.com/NovaFox161">
-					<button>GitHub</button>
-				</a>
-				<a style="text-decoration: none;" href="https://discord.gg/2TFqyuy">
-					<button>Discord Server</button>
-				</a>
+			<div th:unless="${loggedIn}">
+				<h1>Please login to continue</h1>
 			</div>
 		</div>
+
+		<div id="snackbar"></div>
 	</body>
 
 	<footer id="footer">

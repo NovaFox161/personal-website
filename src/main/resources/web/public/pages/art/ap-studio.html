@@ -33,6 +33,10 @@
 					<a href="/plugins/insane-warps">InsaneWarps</a>
 				</div>
 			</div>
+
+			<a class="account" th:if="${loggedIn}" href="/account/logout">Log out</a>
+			<a class="account" th:unless="${loggedIn}" href="/account/register">Register</a>
+			<a class="account" th:unless="${loggedIn}" href="/account/login">Log In</a>
 		</div>
 
 		<div style="margin-left: 10%; margin-right: 10%;">

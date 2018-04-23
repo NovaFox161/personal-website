@@ -2,6 +2,10 @@ package com.novamaday.website.endpoints;
 
 import com.novamaday.website.account.AccountHandler;
 import com.novamaday.website.database.DatabaseManager;
+import com.novamaday.website.objects.SiteSettings;
+import com.novamaday.website.objects.User;
+import com.novamaday.website.utils.Logger;
+import de.triology.recaptchav2java.ReCaptcha;
 import org.json.JSONObject;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import spark.Request;
@@ -11,8 +15,6 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
-import static spark.Spark.halt;
-
 /**
  * Created by: NovaFox161 at 4/11/2018
  * Website: https://www.novamaday.com
@@ -21,51 +23,71 @@ import static spark.Spark.halt;
 public class Account {
     public static String register(Request request, Response response) {
         JSONObject body = new JSONObject(request.body());
-        if (body.has("username") && body.has("email") && body.has("password")) {
-            String username = body.getString("username");
-            String email = body.getString("email");
-            if (!DatabaseManager.getManager().usernameOrEmailTaken(username, email)) {
-                BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-                String hash = encoder.encode(body.getString("password"));
+        if (body.has("username") && body.has("email") && body.has("password") && body.has("gcap")) {
+            if (new ReCaptcha(SiteSettings.RECAP_KEY.get()).isValid(body.getString("gcap"))) {
+                String username = body.getString("username");
+                String email = body.getString("email");
+                if (!DatabaseManager.getManager().usernameOrEmailTaken(username, email)) {
+                    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+                    String hash = encoder.encode(body.getString("password"));
 
-                DatabaseManager.getManager().addNewUser(username, email, hash);
+                    DatabaseManager.getManager().addNewUser(username, email, hash);
 
-                //TODO: Send confirmation email!!!
+                    //TODO: Send confirmation email!!!
 
-                Map<String, Object> m = new HashMap<>();
-                m.put("year", LocalDate.now().getYear());
-                m.put("account", DatabaseManager.getManager().getUserFromEmail(email));
-                AccountHandler.getHandler().addAccount(m, request.session().id());
+                    Map<String, Object> m = new HashMap<>();
+                    m.put("year", LocalDate.now().getYear());
+                    m.put("loggedIn", true);
+                    m.put("account", DatabaseManager.getManager().getUserFromEmail(email));
+                    AccountHandler.getHandler().addAccount(m, request.session().id());
 
-                response.redirect("/account", 301);
+                    response.status(200);
+                    response.body(new JSONObject().put("message", "Success").toString());
+                } else {
+                    response.status(400);
+                    response.body("Username/Email taken!");
+                }
             } else {
-                response.body(new JSONObject().put("Message", "Username/email taken!").toString());
+                response.status(400);
+                response.body("Failed to verify ReCaptcha!");
             }
         } else {
-            halt(400, "Invalid request");
+            response.status(400);
+            response.body("Invalid Request!");
         }
         return response.body();
     }
 
     public static String login(Request request, Response response) {
         JSONObject body = new JSONObject(request.body());
-        if (body.has("email") && body.has("password")) {
-            String email = body.getString("email");
-            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-            String hash = encoder.encode(body.getString("password"));
-            if (DatabaseManager.getManager().validLogin(email, hash)) {
+        if (body.has("email") && body.has("password") && body.has("gcap")) {
+            if (new ReCaptcha(SiteSettings.RECAP_KEY.get()).isValid(body.getString("gcap"))) {
+                String email = body.getString("email");
+                if (DatabaseManager.getManager().validLogin(email, body.getString("password"))) {
 
-                Map<String, Object> m = new HashMap<>();
-                m.put("year", LocalDate.now().getYear());
-                m.put("account", DatabaseManager.getManager().getUserFromEmail(email));
-                AccountHandler.getHandler().addAccount(m, request.session().id());
+                    User account = DatabaseManager.getManager().getUserFromEmail(email);
 
-                response.redirect("/account", 301);
+                    Map<String, Object> m = new HashMap<>();
+                    m.put("year", LocalDate.now().getYear());
+                    m.put("loggedIn", true);
+                    m.put("account", account);
+                    AccountHandler.getHandler().addAccount(m, request.session().id());
+
+                    Logger.getLogger().api("User logged into account: " + account.getUsername(), request.ip());
+
+                    response.status(200);
+                    response.body(new JSONObject().put("message", "Success!").toString());
+                } else {
+                    response.status(400);
+                    response.body("Email/password invalid!");
+                }
             } else {
-                response.body(new JSONObject().put("Message", "Username/email taken!").toString());
+                response.status(400);
+                response.body("Failed to verify ReCaptcha!");
             }
         } else {
-            halt(400, "Invalid request");
+            response.status(400);
+            response.body("Invalid Request!");
         }
         return response.body();
     }

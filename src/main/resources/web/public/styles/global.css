@@ -62,6 +62,22 @@ button:hover {
     color: black;
 }
 
+button.danger {
+    font-size: 18px;
+    background-color: #ef0813;
+    color: white;
+    padding: 10px;
+    border: 2px black;
+    margin: 10px;
+    width: auto;
+    height: auto;
+}
+
+button.danger:hover {
+    color: #ef0813;
+    background-color: white;
+}
+
 hr {
     color: #DE1A1A;
     background-color: #DE1A1A;
@@ -131,6 +147,23 @@ hr {
 .top-nav a.active {
     background-color: #090809;
     color: white;
+}
+
+.top-nav a.account {
+    float: right;
+    text-align: center;
+    padding: 14px 16px;
+    font-size: 17px;
+    text-decoration: none;
+}
+
+.top-nav p.account {
+    float: right;
+    color: white;
+    text-align: center;
+    padding: 15px 18px;
+    font-size: 20px;
+    text-decoration: none;
 }
 
 /* The dropdown container */
@@ -226,4 +259,124 @@ th {
 /* Formatting to make code pretty! */
 pre {
     text-align: left;
+}
+
+/* snackbar */
+#snackbar {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: white;
+    color: black;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    bottom: 30px;
+}
+
+/* Show the snackbar*/
+#snackbar.show {
+    visibility: visible;
+
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+    from {
+        bottom: 0;
+        opacity: 0;
+    }
+    to {
+        bottom: 30px;
+        opacity: 1;
+    }
+}
+
+@keyframes fadein {
+    from {
+        bottom: 0;
+        opacity: 0;
+    }
+    to {
+        bottom: 30px;
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadeout {
+    from {
+        bottom: 30px;
+        opacity: 1;
+    }
+    to {
+        bottom: 0;
+        opacity: 0;
+    }
+}
+
+@keyframes fadeout {
+    from {
+        bottom: 30px;
+        opacity: 1;
+    }
+    to {
+        bottom: 0;
+        opacity: 0;
+    }
+}
+
+/* Form stuffs */
+textarea {
+    resize: none;
+}
+
+select {
+    border: 1px solid black;
+    border-radius: 2px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    width: 200px;
+}
+
+input {
+    width: 200px;
+}
+
+input.submit {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border: 1px solid #ef0813;
+}
+
+input.submit:hover {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border: 1px solid #ef0813;
+    background: gray;
+    color: white;
+}
+
+input.reset {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border: 1px solid black;
+    background: #ef0813;
+    color: black;
+}
+
+input.reset:hover {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border: 1px solid white;
+    background: white;
+    color: black;
+}
+
+label {
+    color: black;
 }

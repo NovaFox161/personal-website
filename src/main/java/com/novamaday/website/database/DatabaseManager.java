@@ -4,6 +4,7 @@ import com.novamaday.website.objects.SiteSettings;
 import com.novamaday.website.objects.User;
 import com.novamaday.website.objects.UserAPIAccount;
 import com.novamaday.website.utils.Logger;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.sql.*;
 import java.util.UUID;
@@ -97,7 +98,6 @@ public class DatabaseManager {
     public void addNewUser(String username, String email, String hash) {
         try {
             if (databaseInfo.getMySQL().checkConnection()) {
-                //TODO: Use ps to add account!
                 String tableName = String.format("%saccounts", databaseInfo.getPrefix());
                 String query = "INSERT INTO " + tableName + " (user_id, username, email, hash) VALUES (?, ?, ?, ?)";
                 PreparedStatement statement = databaseInfo.getConnection().prepareStatement(query);
@@ -170,7 +170,7 @@ public class DatabaseManager {
         return null;
     }
 
-    public boolean validLogin(String email, String hash) {
+    public boolean validLogin(String email, String password) {
         try {
             if (databaseInfo.getMySQL().checkConnection()) {
                 String tableName = String.format("%saccounts", databaseInfo.getPrefix());
@@ -180,9 +180,8 @@ public class DatabaseManager {
 
                 ResultSet res = statement.executeQuery();
 
-                Boolean hasStuff = res.next();
-
-                if (hasStuff && res.getString("hash").equals(hash)) {
+                BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+                if (res.next() && encoder.matches(password, res.getString("hash"))) {
                     statement.close();
                     return true;
                 }

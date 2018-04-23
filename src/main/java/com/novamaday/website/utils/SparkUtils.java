@@ -32,22 +32,29 @@ public class SparkUtils {
                 //User is logged in from website, no API key needed
                 Logger.getLogger().api("API Call from website", request.ip());
             } else {
-                //Requires "Authorization Header
+                //Requires "Authorization" Header
                 if (request.headers().contains("Authorization")) {
                     String key = request.headers("Authorization");
-                    UserAPIAccount acc = DatabaseManager.getManager().getAPIAccount(key);
-                    if (acc != null) {
-                        if (acc.isBlocked()) {
-                            Logger.getLogger().api("Attempted to use blocked API Key: " + acc.getAPIKey(), request.ip());
-                            halt(401, "Unauthorized");
-                        } else {
-                            //Everything checks out!
-                            acc.setUses(acc.getUses() + 1);
-                            DatabaseManager.getManager().updateAPIAccount(acc);
-                        }
+                    //This if safe to do since we are using NoCaptcha ReCaptcha on these pages which verifies domain source.
+                    if (key.equals("REGISTER_ACCOUNT") && request.pathInfo().equals("/api/v1/account/register")) {
+                        Logger.getLogger().api("User registering account.", request.ip());
+                    } else if (key.equals("LOGIN_ACCOUNT") && request.pathInfo().equals("/api/v1/account/login")) {
+                        Logger.getLogger().api("user logging into account.", request.ip());
                     } else {
-                        Logger.getLogger().api("Attempted to use invalid API Key: " + key, request.ip());
-                        halt(401, "Unauthorized");
+                        UserAPIAccount acc = DatabaseManager.getManager().getAPIAccount(key);
+                        if (acc != null) {
+                            if (acc.isBlocked()) {
+                                Logger.getLogger().api("Attempted to use blocked API Key: " + acc.getAPIKey(), request.ip());
+                                halt(401, "Unauthorized");
+                            } else {
+                                //Everything checks out!
+                                acc.setUses(acc.getUses() + 1);
+                                DatabaseManager.getManager().updateAPIAccount(acc);
+                            }
+                        } else {
+                            Logger.getLogger().api("Attempted to use invalid API Key: " + key, request.ip());
+                            halt(401, "Unauthorized");
+                        }
                     }
                 } else {
                     Logger.getLogger().api("Attempted to use API without authorization header", request.ip());
@@ -66,7 +73,6 @@ public class SparkUtils {
             path("/account", () -> {
                 post("/register", Account::register);
                 post("/login", Account::login);
-                post("/logout", Account::logout);
             });
         });
 
@@ -75,6 +81,12 @@ public class SparkUtils {
         get("/home", (rq, rs) -> new ModelAndView(AccountHandler.getHandler().getAccount(rq.session().id()), "pages/index"), new ThymeleafTemplateEngine());
         get("/about", (rq, rs) -> new ModelAndView(AccountHandler.getHandler().getAccount(rq.session().id()), "pages/about"), new ThymeleafTemplateEngine());
         get("/contact", (rq, rs) -> new ModelAndView(AccountHandler.getHandler().getAccount(rq.session().id()), "pages/contact"), new ThymeleafTemplateEngine());
+
+        //Account pages
+        get("/account", (rq, rs) -> new ModelAndView(AccountHandler.getHandler().getAccount(rq.session().id()), "pages/account/account"), new ThymeleafTemplateEngine());
+        get("/account/register", (rq, rs) -> new ModelAndView(AccountHandler.getHandler().getAccount(rq.session().id()), "pages/account/register"), new ThymeleafTemplateEngine());
+        get("/account/login", (rq, rs) -> new ModelAndView(AccountHandler.getHandler().getAccount(rq.session().id()), "pages/account/login"), new ThymeleafTemplateEngine());
+        get("/account/logout", Account::logout);
 
         //Art pages
         get("/art/ap-studio", (rq, rs) -> new ModelAndView(AccountHandler.getHandler().getAccount(rq.session().id()), "pages/art/ap-studio"), new ThymeleafTemplateEngine());

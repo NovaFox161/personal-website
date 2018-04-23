@@ -71,6 +71,18 @@
             <artifactId>spring-security-core</artifactId>
             <version>4.2.3.RELEASE</version>
         </dependency>
+        <!--Fix some strange errors-->
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.2</version>
+        </dependency>
+        <!--Google ReCAPTCHA Wrapper-->
+        <dependency>
+            <groupId>de.triology.recaptchav2-java</groupId>
+            <artifactId>recaptchav2-java</artifactId>
+            <version>1.0.2</version>
+        </dependency>
     </dependencies>
 
     <build>

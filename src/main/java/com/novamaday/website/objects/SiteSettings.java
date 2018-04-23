@@ -3,7 +3,7 @@ package com.novamaday.website.objects;
 import java.util.Properties;
 
 public enum SiteSettings {
-    SQL_HOST, SQL_USER, SQL_PASSWORD, SQL_DB, SQL_PORT, SQL_PREFIX, TIME_OUT, PORT, LOG_FOLDER;
+    SQL_HOST, SQL_USER, SQL_PASSWORD, SQL_DB, SQL_PORT, SQL_PREFIX, TIME_OUT, PORT, LOG_FOLDER, RECAP_KEY;
 
     private String val;
 
