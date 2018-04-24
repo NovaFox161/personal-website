@@ -98,5 +98,8 @@ public class SparkUtils {
 
         //Policy pages
         get("/policy/privacy", (rq, rs) -> new ModelAndView(AccountHandler.getHandler().getAccount(rq.session().id()), "pages/policy/privacy"), new ThymeleafTemplateEngine());
+
+        //Callback URLs for various stuffs
+        get("/confirm/email", Account::confirmEmail);
     }
 }

@@ -83,6 +83,12 @@
             <artifactId>recaptchav2-java</artifactId>
             <version>1.0.2</version>
         </dependency>
+        <!--Simple Java Mail-->
+        <dependency>
+            <groupId>org.simplejavamail</groupId>
+            <artifactId>simple-java-mail</artifactId>
+            <version>5.0.3</version>
+        </dependency>
     </dependencies>
 
     <build>

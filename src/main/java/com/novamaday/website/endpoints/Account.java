@@ -2,8 +2,11 @@ package com.novamaday.website.endpoints;
 
 import com.novamaday.website.account.AccountHandler;
 import com.novamaday.website.database.DatabaseManager;
+import com.novamaday.website.objects.Confirmation;
 import com.novamaday.website.objects.SiteSettings;
 import com.novamaday.website.objects.User;
+import com.novamaday.website.utils.EmailHandler;
+import com.novamaday.website.utils.Generator;
 import com.novamaday.website.utils.Logger;
 import de.triology.recaptchav2java.ReCaptcha;
 import org.json.JSONObject;
@@ -32,13 +35,15 @@ public class Account {
                     String hash = encoder.encode(body.getString("password"));
 
                     DatabaseManager.getManager().addNewUser(username, email, hash);
+                    User account = DatabaseManager.getManager().getUserFromEmail(email);
 
-                    //TODO: Send confirmation email!!!
+                    //Send confirmation email!!!
+                    EmailHandler.getHandler().sendEmailConfirm(email, Generator.generateEmailConfirmationLink(account));
 
                     Map<String, Object> m = new HashMap<>();
                     m.put("year", LocalDate.now().getYear());
                     m.put("loggedIn", true);
-                    m.put("account", DatabaseManager.getManager().getUserFromEmail(email));
+                    m.put("account", account);
                     AccountHandler.getHandler().addAccount(m, request.session().id());
 
                     response.status(200);
@@ -95,6 +100,31 @@ public class Account {
     public static String logout(Request request, Response response) {
         AccountHandler.getHandler().removeAccount(request.session().id());
         response.redirect("/", 301);
+        return response.body();
+    }
+
+    public static String confirmEmail(Request request, Response response) {
+        if (request.queryParams().contains("code")) {
+            String code = request.queryParams("code");
+            Confirmation con = DatabaseManager.getManager().getConfirmationInfo(code);
+            if (con != null) {
+                User user = DatabaseManager.getManager().getUserFromId(con.getUserId());
+                user.setEmailConfirmed(true);
+                DatabaseManager.getManager().removeConfirmationInfo(code);
+                DatabaseManager.getManager().updateUser(user);
+
+                Logger.getLogger().api("Confirmed user email: " + user.getId(), request.ip());
+
+                //Success... redirect to account page.
+                response.redirect("/account", 301);
+            } else {
+                response.status(400);
+                response.body("Invalid Code");
+            }
+        } else {
+            response.status(400);
+            response.body("Invalid Request");
+        }
         return response.body();
     }
 }

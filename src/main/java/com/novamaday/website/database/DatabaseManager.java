@@ -1,5 +1,6 @@
 package com.novamaday.website.database;
 
+import com.novamaday.website.objects.Confirmation;
 import com.novamaday.website.objects.SiteSettings;
 import com.novamaday.website.objects.User;
 import com.novamaday.website.objects.UserAPIAccount;
@@ -69,12 +70,14 @@ public class DatabaseManager {
 
             String accountsTableName = String.format("%saccounts", databaseInfo.getPrefix());
             String apiTableName = String.format("%sapi", databaseInfo.getPrefix());
+            String confirmationTableName = String.format("%sconfirmation", databaseInfo.getPrefix());
 
             String createAccountsTable = "CREATE TABLE IF NOT EXISTS " + accountsTableName +
                     "(user_id VARCHAR(255) not NULL, " +
                     " username VARCHAR(255) not NULL, " +
                     " email LONGTEXT not NULL, " +
                     " hash LONGTEXT not NULL, " +
+                    " email_confirmed BOOLEAN not NULL, " +
                     " PRIMARY KEY (user_id))";
             String createAPITable = "CREATE TABLE IF NOT EXISTS " + apiTableName +
                     " (user_id varchar(255) not NULL, " +
@@ -83,9 +86,14 @@ public class DatabaseManager {
                     " time_issued LONG not NULL, " +
                     " uses INT not NULL, " +
                     " PRIMARY KEY (user_id, api_key))";
+            String createConfirmationTable = "CREATE TABLE IF NOT EXISTS " + confirmationTableName +
+                    "(user_id VARCHAR(255) not NULL, " +
+                    " code VARCHAR(32) not NULL, " +
+                    "PRIMARY KEY (user_id))";
 
             statement.execute(createAccountsTable);
             statement.execute(createAPITable);
+            statement.execute(createConfirmationTable);
 
             statement.close();
             System.out.println("Successfully created needed tables in MySQL database!");
@@ -99,13 +107,14 @@ public class DatabaseManager {
         try {
             if (databaseInfo.getMySQL().checkConnection()) {
                 String tableName = String.format("%saccounts", databaseInfo.getPrefix());
-                String query = "INSERT INTO " + tableName + " (user_id, username, email, hash) VALUES (?, ?, ?, ?)";
+                String query = "INSERT INTO " + tableName + " (user_id, username, email, hash, email_confirmed) VALUES (?, ?, ?, ?, ?)";
                 PreparedStatement statement = databaseInfo.getConnection().prepareStatement(query);
 
                 statement.setString(1, UUID.randomUUID().toString());
                 statement.setString(2, username);
                 statement.setString(3, email);
                 statement.setString(4, hash);
+                statement.setBoolean(5, false);
 
                 statement.execute();
             }
@@ -130,6 +139,7 @@ public class DatabaseManager {
                     User u = new User(UUID.fromString(res.getString("user_id")));
                     u.setUsername(username);
                     u.setEmail(res.getString("email"));
+                    u.setEmailConfirmed(res.getBoolean("email_confirmed"));
 
                     statement.close();
                     return u;
@@ -158,6 +168,7 @@ public class DatabaseManager {
                     User u = new User(UUID.fromString(res.getString("user_id")));
                     u.setUsername(res.getString("username"));
                     u.setEmail(email);
+                    u.setEmailConfirmed(res.getBoolean("email_confirmed"));
 
                     statement.close();
                     return u;
@@ -166,6 +177,35 @@ public class DatabaseManager {
             }
         } catch (SQLException e) {
             Logger.getLogger().exception("Failed to get user from database by email", e, this.getClass());
+        }
+        return null;
+    }
+
+    public User getUserFromId(UUID id) {
+        try {
+            if (databaseInfo.getMySQL().checkConnection()) {
+                String tableName = String.format("%saccounts", databaseInfo.getPrefix());
+                String query = "SELECT * FROM " + tableName + " WHERE user_id = ?";
+                PreparedStatement statement = databaseInfo.getConnection().prepareStatement(query);
+                statement.setString(1, id.toString());
+
+                ResultSet res = statement.executeQuery();
+
+                Boolean hasStuff = res.next();
+
+                if (hasStuff) {
+                    User u = new User(id);
+                    u.setUsername(res.getString("username"));
+                    u.setEmail(res.getString("email"));
+                    u.setEmailConfirmed(res.getBoolean("email_confirmed"));
+
+                    statement.close();
+                    return u;
+                }
+                statement.close();
+            }
+        } catch (SQLException e) {
+            Logger.getLogger().exception("Failed to get user from database by id", e, this.getClass());
         }
         return null;
     }
@@ -216,6 +256,46 @@ public class DatabaseManager {
             }
         } catch (SQLException e) {
             Logger.getLogger().exception("Failed to verify username/email taken", e, this.getClass());
+        }
+        return false;
+    }
+
+    public boolean updateUser(User user) {
+        try {
+            if (databaseInfo.getMySQL().checkConnection()) {
+                String tableName = String.format("%saccounts", databaseInfo.getPrefix());
+
+                String query = "SELECT * FROM " + tableName + " WHERE user_id = '" + user.getId().toString() + "';";
+                PreparedStatement statement = databaseInfo.getConnection().prepareStatement(query);
+                ResultSet res = statement.executeQuery();
+
+                Boolean hasStuff = res.next();
+
+                if (!hasStuff || res.getString("user_id") == null) {
+                    //Data not present. this should not be possible.
+                    statement.close();
+                    return false;
+                } else {
+                    //Data present, update.
+                    String update = "UPDATE " + tableName
+                            + " SET username = ?, email = ?,"
+                            + " email_confirmed = ? WHERE user_id = ?";
+                    PreparedStatement ps = databaseInfo.getConnection().prepareStatement(update);
+
+                    ps.setString(1, user.getUsername());
+                    ps.setString(2, user.getEmail());
+                    ps.setBoolean(3, user.isEmailConfirmed());
+                    ps.setString(4, user.getId().toString());
+
+                    ps.executeUpdate();
+
+                    ps.close();
+                    statement.close();
+                }
+                return true;
+            }
+        } catch (SQLException e) {
+            Logger.getLogger().exception("Failed to update API account", e, this.getClass());
         }
         return false;
     }
@@ -303,5 +383,67 @@ public class DatabaseManager {
             Logger.getLogger().exception("Failed to get API Account.", e, this.getClass());
         }
         return null;
+    }
+
+    public void addPendingConfirmation(User user, String code) {
+        try {
+            if (databaseInfo.getMySQL().checkConnection()) {
+                String tableName = String.format("%sconfirmation", databaseInfo.getPrefix());
+                String query = "INSERT INTO " + tableName + " (user_id, code) VALUES (?, ?)";
+                PreparedStatement statement = databaseInfo.getConnection().prepareStatement(query);
+
+                statement.setString(1, user.getId().toString());
+                statement.setString(2, code);
+
+                statement.execute();
+            }
+        } catch (SQLException e) {
+            Logger.getLogger().exception("Failed to input confirmation code", e, this.getClass());
+        }
+    }
+
+    public Confirmation getConfirmationInfo(String code) {
+        try {
+            if (databaseInfo.getMySQL().checkConnection()) {
+                String tableName = String.format("%sconfirmation", databaseInfo.getPrefix());
+                String query = "SELECT * FROM " + tableName + " WHERE code = '" + code + "';";
+                PreparedStatement statement = databaseInfo.getConnection().prepareStatement(query);
+                ResultSet res = statement.executeQuery();
+
+                Boolean hasStuff = res.next();
+
+                if (hasStuff && res.getString("code") != null) {
+                    Confirmation con = new Confirmation();
+                    con.setUserId(UUID.fromString(res.getString("user_id")));
+                    con.setCode(code);
+
+                    statement.close();
+
+                    return con;
+                } else {
+                    //Data not present.
+                    statement.close();
+                    return null;
+                }
+            }
+        } catch (SQLException e) {
+            Logger.getLogger().exception("Failed to get confirmation data", e, this.getClass());
+        }
+        return null;
+    }
+
+    public void removeConfirmationInfo(String code) {
+        try {
+            if (databaseInfo.getMySQL().checkConnection()) {
+                String tableName = String.format("%sconfirmation", databaseInfo.getPrefix());
+                String query = "DELETE FROM " + tableName + " WHERE code = '" + code + "';";
+                PreparedStatement statement = databaseInfo.getConnection().prepareStatement(query);
+
+                statement.execute();
+                statement.close();
+            }
+        } catch (SQLException e) {
+            Logger.getLogger().exception("Failed to delete confirmation data", e, this.getClass());
+        }
     }
 }

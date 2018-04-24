@@ -3,6 +3,7 @@ package com.novamaday.website;
 import com.novamaday.website.account.AccountHandler;
 import com.novamaday.website.database.DatabaseManager;
 import com.novamaday.website.objects.SiteSettings;
+import com.novamaday.website.utils.EmailHandler;
 import com.novamaday.website.utils.Logger;
 import com.novamaday.website.utils.SparkUtils;
 
@@ -27,5 +28,8 @@ public class Main {
         //Init spark
         AccountHandler.getHandler().init();
         SparkUtils.initSpark();
+
+        //Init the rest of our services
+        EmailHandler.getHandler().init();
     }
 }
