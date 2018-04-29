@@ -1,9 +1,6 @@
 package com.novamaday.website.database;
 
-import com.novamaday.website.objects.Confirmation;
-import com.novamaday.website.objects.SiteSettings;
-import com.novamaday.website.objects.User;
-import com.novamaday.website.objects.UserAPIAccount;
+import com.novamaday.website.objects.*;
 import com.novamaday.website.utils.Logger;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -71,6 +68,7 @@ public class DatabaseManager {
             String accountsTableName = String.format("%saccounts", databaseInfo.getPrefix());
             String apiTableName = String.format("%sapi", databaseInfo.getPrefix());
             String confirmationTableName = String.format("%sconfirmation", databaseInfo.getPrefix());
+            String pluginTableName = String.format("%splugins", databaseInfo.getPrefix());
 
             String createAccountsTable = "CREATE TABLE IF NOT EXISTS " + accountsTableName +
                     "(user_id VARCHAR(255) not NULL, " +
@@ -90,10 +88,17 @@ public class DatabaseManager {
                     "(user_id VARCHAR(255) not NULL, " +
                     " code VARCHAR(32) not NULL, " +
                     "PRIMARY KEY (user_id))";
+            String createPluginsTable = "CREATE TABLE IF NOT EXISTS " + pluginTableName +
+                    "(name VARCHAR(255) not NULL, " +
+                    " version VARCHAR(255) not NULL, " +
+                    " main_page LONGTEXT not NULL , " +
+                    " download_link LONGTEXT not NULL, " +
+                    "PRIMARY KEY (name))";
 
             statement.execute(createAccountsTable);
             statement.execute(createAPITable);
             statement.execute(createConfirmationTable);
+            statement.execute(createPluginsTable);
 
             statement.close();
             System.out.println("Successfully created needed tables in MySQL database!");
@@ -445,5 +450,85 @@ public class DatabaseManager {
         } catch (SQLException e) {
             Logger.getLogger().exception("Failed to delete confirmation data", e, this.getClass());
         }
+    }
+
+    public boolean addPlugin(Plugin plugin) {
+        try {
+            if (databaseInfo.getMySQL().checkConnection()) {
+                String tableName = String.format("%splugins", databaseInfo.getPrefix());
+
+                String query = "SELECT * FROM " + tableName + " WHERE name = '" + plugin.getName() + "';";
+                PreparedStatement statement = databaseInfo.getConnection().prepareStatement(query);
+                ResultSet res = statement.executeQuery();
+
+                Boolean hasStuff = res.next();
+
+                if (!hasStuff || res.getString("name") == null) {
+                    statement.close();
+
+                    //Data not present, add.
+                    String update = "INSERT INTO " + tableName + " (name, version, main_page, download_page) VALUES (?, ?, ?, ?)";
+                    PreparedStatement ps = databaseInfo.getConnection().prepareStatement(update);
+
+                    ps.setString(1, plugin.getName());
+                    ps.setString(2, plugin.getVersion());
+                    ps.setString(3, plugin.getMainPage());
+                    ps.setString(4, plugin.getDownloadLink());
+
+                    ps.execute();
+                    ps.close();
+
+                    return true;
+                } else {
+                    statement.close();
+
+                    //Data present, update.
+                    String update = "UPDATE " + tableName
+                            + " SET version = ?, main_page = ?,"
+                            + " download_link = ? WHERE name = ?";
+                    PreparedStatement ps = databaseInfo.getConnection().prepareStatement(update);
+
+                    ps.setString(1, plugin.getVersion());
+                    ps.setString(2, plugin.getMainPage());
+                    ps.setString(3, plugin.getDownloadLink());
+                    ps.setString(4, plugin.getName());
+
+                    ps.executeUpdate();
+
+                    ps.close();
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            Logger.getLogger().exception("Failed to add/update plugin in database", e, this.getClass());
+        }
+        return false;
+    }
+
+    public Plugin getPlugin(String name) {
+        try {
+            if (databaseInfo.getMySQL().checkConnection()) {
+                String tableName = String.format("%splugins", databaseInfo.getPrefix());
+
+                String query = "SELECT * FROM " + tableName + " WHERE name = '" + name + "';";
+                PreparedStatement statement = databaseInfo.getConnection().prepareStatement(query);
+                ResultSet res = statement.executeQuery();
+
+                Boolean hasStuff = res.next();
+
+                if (hasStuff && res.getString("name") != null) {
+                    Plugin plugin = new Plugin(name);
+                    plugin.setVersion(res.getString("version"));
+                    plugin.setMainPage(res.getString("main_page"));
+                    plugin.setDownloadLink(res.getString("download_link"));
+
+                    statement.close();
+                    return plugin;
+                }
+            }
+        } catch (SQLException e) {
+            Logger.getLogger().exception("Failed to get plugin from database", e, this.getClass());
+        }
+        return null;
     }
 }

@@ -1,4 +1,4 @@
-package com.novamaday.website.endpoints;
+package com.novamaday.website.api.v1.endpoints;
 
 import com.novamaday.website.account.AccountHandler;
 import com.novamaday.website.database.DatabaseManager;
@@ -23,7 +23,7 @@ import java.util.Map;
  * Website: https://www.novamaday.com
  * For Project: Personal-Site
  */
-public class Account {
+public class AccountEndpoint {
     public static String register(Request request, Response response) {
         JSONObject body = new JSONObject(request.body());
         if (body.has("username") && body.has("email") && body.has("password") && body.has("gcap")) {

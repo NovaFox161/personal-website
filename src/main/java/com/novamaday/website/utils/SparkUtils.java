@@ -1,8 +1,9 @@
 package com.novamaday.website.utils;
 
 import com.novamaday.website.account.AccountHandler;
+import com.novamaday.website.api.v1.endpoints.AccountEndpoint;
+import com.novamaday.website.api.v1.endpoints.PluginUpdateEndpoint;
 import com.novamaday.website.database.DatabaseManager;
-import com.novamaday.website.endpoints.Account;
 import com.novamaday.website.objects.SiteSettings;
 import com.novamaday.website.objects.UserAPIAccount;
 import spark.ModelAndView;
@@ -40,6 +41,8 @@ public class SparkUtils {
                         Logger.getLogger().api("User registering account.", request.ip());
                     } else if (key.equals("LOGIN_ACCOUNT") && request.pathInfo().equals("/api/v1/account/login")) {
                         Logger.getLogger().api("user logging into account.", request.ip());
+                    } else if (key.equals("CHECK_PLUGIN") && request.pathInfo().equals("/api/v1/plugin/check")) {
+                        Logger.getLogger().api("MC Server checking plugin version.", request.ip());
                     } else {
                         UserAPIAccount acc = DatabaseManager.getManager().getAPIAccount(key);
                         if (acc != null) {
@@ -71,8 +74,12 @@ public class SparkUtils {
         path("/api/v1", () -> {
             before("/*", (q, a) -> System.out.println("Received API call from: " + q.ip() + "; Host:" + q.host()));
             path("/account", () -> {
-                post("/register", Account::register);
-                post("/login", Account::login);
+                post("/register", AccountEndpoint::register);
+                post("/login", AccountEndpoint::login);
+            });
+            path("/plugin", () -> {
+                post("/check", PluginUpdateEndpoint::check);
+                //TODO: Add update/download endpoint
             });
         });
 
@@ -86,7 +93,7 @@ public class SparkUtils {
         get("/account", (rq, rs) -> new ModelAndView(AccountHandler.getHandler().getAccount(rq.session().id()), "pages/account/account"), new ThymeleafTemplateEngine());
         get("/account/register", (rq, rs) -> new ModelAndView(AccountHandler.getHandler().getAccount(rq.session().id()), "pages/account/register"), new ThymeleafTemplateEngine());
         get("/account/login", (rq, rs) -> new ModelAndView(AccountHandler.getHandler().getAccount(rq.session().id()), "pages/account/login"), new ThymeleafTemplateEngine());
-        get("/account/logout", Account::logout);
+        get("/account/logout", AccountEndpoint::logout);
 
         //Art pages
         get("/art/ap-studio", (rq, rs) -> new ModelAndView(AccountHandler.getHandler().getAccount(rq.session().id()), "pages/art/ap-studio"), new ThymeleafTemplateEngine());
@@ -100,6 +107,6 @@ public class SparkUtils {
         get("/policy/privacy", (rq, rs) -> new ModelAndView(AccountHandler.getHandler().getAccount(rq.session().id()), "pages/policy/privacy"), new ThymeleafTemplateEngine());
 
         //Callback URLs for various stuffs
-        get("/confirm/email", Account::confirmEmail);
+        get("/confirm/email", AccountEndpoint::confirmEmail);
     }
 }
