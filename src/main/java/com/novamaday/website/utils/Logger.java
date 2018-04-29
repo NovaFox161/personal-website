@@ -1,7 +1,6 @@
 package com.novamaday.website.utils;
 
 import com.novamaday.website.objects.SiteSettings;
-import com.sun.istack.internal.Nullable;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -58,7 +57,7 @@ public class Logger {
         }
     }
 
-    public void exception(@Nullable String message, Exception e, Class clazz) {
+    public void exception(String message, Exception e, Class clazz) {
         String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime());
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
@@ -85,7 +84,7 @@ public class Logger {
         }
     }
 
-    public void debug(String message, @Nullable String info, Class clazz) {
+    public void debug(String message, String info, Class clazz) {
         String timeStamp = new SimpleDateFormat("yyyy/MM/dd-HH:mm:ss").format(Calendar.getInstance().getTime());
 
         try {
