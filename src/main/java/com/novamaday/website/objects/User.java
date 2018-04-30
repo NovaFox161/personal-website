@@ -12,6 +12,7 @@ public class User {
     private String username;
     private String email;
     private boolean emailConfirmed;
+    private boolean admin;
 
     public User(UUID _id) {
         id = _id;
@@ -34,6 +35,10 @@ public class User {
         return emailConfirmed;
     }
 
+    public boolean isAdmin() {
+        return admin;
+    }
+
     //Setters
     public void setUsername(String _username) {
         username = _username;
@@ -45,5 +50,9 @@ public class User {
 
     public void setEmailConfirmed(Boolean _confirmed) {
         emailConfirmed = _confirmed;
+    }
+
+    public void setAdmin(boolean _admin) {
+        admin = _admin;
     }
 }

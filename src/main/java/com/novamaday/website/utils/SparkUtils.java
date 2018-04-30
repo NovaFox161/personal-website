@@ -78,6 +78,7 @@ public class SparkUtils {
                 post("/login", AccountEndpoint::login);
             });
             path("/plugin", () -> {
+                post("/add", PluginUpdateEndpoint::add);
                 post("/check", PluginUpdateEndpoint::check);
                 //TODO: Add update/download endpoint
             });

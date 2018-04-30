@@ -1,12 +1,45 @@
 package com.novamaday.website.api.v1.endpoints;
 
+import com.novamaday.website.account.AccountHandler;
 import com.novamaday.website.database.DatabaseManager;
 import com.novamaday.website.objects.Plugin;
+import com.novamaday.website.objects.User;
 import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
 
 public class PluginUpdateEndpoint {
+    public static String add(Request request, Response response) {
+        JSONObject body = new JSONObject(request.body());
+        if (body.has("name") && body.has("version") && body.has("main_page") && body.has("download_link")) {
+            if (!AccountHandler.getHandler().hasAccount(request.session().id())) {
+                User user = (User) AccountHandler.getHandler().getAccount(request.session().id()).get("account");
+                if (user.isAdmin()) {
+                    Plugin plugin = new Plugin(body.getString("name"));
+
+                    plugin.setVersion(body.getString("version"));
+                    plugin.setMainPage(body.getString("main_page"));
+                    plugin.setDownloadLink(body.getString("download_link"));
+
+                    DatabaseManager.getManager().addPlugin(plugin);
+
+                    response.status(200);
+                    response.body("Successfully added plugin!");
+                } else {
+                    response.status(405);
+                    response.body("Action not allowed!");
+                }
+            } else {
+                response.status(405);
+                response.body("Action not allowed!");
+            }
+        } else {
+            response.status(400);
+            response.body("Invalid request");
+        }
+        return response.body();
+    }
+
     public static String check(Request request, Response response) {
         JSONObject body = new JSONObject(request.body());
         if (body.has("name") && body.has("version")) {

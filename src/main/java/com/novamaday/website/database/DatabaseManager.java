@@ -76,6 +76,7 @@ public class DatabaseManager {
                     " email LONGTEXT not NULL, " +
                     " hash LONGTEXT not NULL, " +
                     " email_confirmed BOOLEAN not NULL, " +
+                    " admin BOOLEAN not NULL, " +
                     " PRIMARY KEY (user_id))";
             String createAPITable = "CREATE TABLE IF NOT EXISTS " + apiTableName +
                     " (user_id varchar(255) not NULL, " +
@@ -112,7 +113,7 @@ public class DatabaseManager {
         try {
             if (databaseInfo.getMySQL().checkConnection()) {
                 String tableName = String.format("%saccounts", databaseInfo.getPrefix());
-                String query = "INSERT INTO " + tableName + " (user_id, username, email, hash, email_confirmed) VALUES (?, ?, ?, ?, ?)";
+                String query = "INSERT INTO " + tableName + " (user_id, username, email, hash, email_confirmed, admin) VALUES (?, ?, ?, ?, ?, ?)";
                 PreparedStatement statement = databaseInfo.getConnection().prepareStatement(query);
 
                 statement.setString(1, UUID.randomUUID().toString());
@@ -120,6 +121,7 @@ public class DatabaseManager {
                 statement.setString(3, email);
                 statement.setString(4, hash);
                 statement.setBoolean(5, false);
+                statement.setBoolean(6, false);
 
                 statement.execute();
             }
@@ -145,6 +147,7 @@ public class DatabaseManager {
                     u.setUsername(username);
                     u.setEmail(res.getString("email"));
                     u.setEmailConfirmed(res.getBoolean("email_confirmed"));
+                    u.setAdmin(res.getBoolean("admin"));
 
                     statement.close();
                     return u;
@@ -174,6 +177,7 @@ public class DatabaseManager {
                     u.setUsername(res.getString("username"));
                     u.setEmail(email);
                     u.setEmailConfirmed(res.getBoolean("email_confirmed"));
+                    u.setAdmin(res.getBoolean("admin"));
 
                     statement.close();
                     return u;
@@ -203,6 +207,7 @@ public class DatabaseManager {
                     u.setUsername(res.getString("username"));
                     u.setEmail(res.getString("email"));
                     u.setEmailConfirmed(res.getBoolean("email_confirmed"));
+                    u.setAdmin(res.getBoolean("admin"));
 
                     statement.close();
                     return u;
@@ -284,13 +289,14 @@ public class DatabaseManager {
                     //Data present, update.
                     String update = "UPDATE " + tableName
                             + " SET username = ?, email = ?,"
-                            + " email_confirmed = ? WHERE user_id = ?";
+                            + " email_confirmed = ?, admin = ? WHERE user_id = ?";
                     PreparedStatement ps = databaseInfo.getConnection().prepareStatement(update);
 
                     ps.setString(1, user.getUsername());
                     ps.setString(2, user.getEmail());
                     ps.setBoolean(3, user.isEmailConfirmed());
-                    ps.setString(4, user.getId().toString());
+                    ps.setBoolean(4, user.isAdmin());
+                    ps.setString(5, user.getId().toString());
 
                     ps.executeUpdate();
 
