@@ -60,11 +60,11 @@ public class PluginUpdateEndpoint {
                 }
             } else {
                 response.status(404);
-                response.body("Plugin not found");
+                response.body(new JSONObject().put("message", "Plugin not found").toString());
             }
         } else {
             response.status(400);
-            response.body("Invalid request");
+            response.body(new JSONObject().put("message", "Bad Request").toString());
         }
         return response.body();
     }

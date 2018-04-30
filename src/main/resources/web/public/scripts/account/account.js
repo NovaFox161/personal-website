@@ -14,8 +14,8 @@ function addUpdatePlugin() {
         method: "POST",
         dataType: "json",
         data: JSON.stringify(bodyRaw),
-        success: function (jqXHR, textStatus) {
-            showSnackbar(jqXHR.responseText);
+        success: function (data) {
+            showSnackbar("Successfully added/updated plugin!");
             document.getElementById("plugin-add-form").reset();
         },
         error: function (jqXHR, textStatus, errorThrown) {
