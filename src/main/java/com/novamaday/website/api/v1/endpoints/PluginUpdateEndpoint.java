@@ -12,7 +12,7 @@ public class PluginUpdateEndpoint {
     public static String add(Request request, Response response) {
         JSONObject body = new JSONObject(request.body());
         if (body.has("name") && body.has("version") && body.has("main_page") && body.has("download_link")) {
-            if (!AccountHandler.getHandler().hasAccount(request.session().id())) {
+            if (AccountHandler.getHandler().hasAccount(request.session().id())) {
                 User user = (User) AccountHandler.getHandler().getAccount(request.session().id()).get("account");
                 if (user.isAdmin()) {
                     Plugin plugin = new Plugin(body.getString("name"));

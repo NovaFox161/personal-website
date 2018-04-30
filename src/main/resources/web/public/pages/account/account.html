@@ -52,6 +52,44 @@
 				<p>
 					More will be here, I just built this.
 				</p>
+
+				<div th:if="${account.admin}">
+					<br>
+					<hr>
+					<br>
+					<h2>Admin Panel</h2>
+
+					<h3>Add Or Update Plugins</h3>
+					<form id="plugin-add-form" action="javascript:addUpdatePlugin()">
+						<label>Plugin Name
+							<br>
+							<input type="text" value="ExampleName" required id="plugin-name">
+						</label>
+						<br>
+						<br>
+						<label>Plugin Version
+							<br>
+							<input type="text" value="1.0.0" required id="plugin-version">
+						</label>
+						<br>
+						<br>
+						<label>Plugin Main Page
+							<br>
+							<input type="url" value="https://novamaday.com/plugins/ExamplePlugin" required
+							       id="plugin-main-page">
+						</label>
+						<br>
+						<br>
+						<label>Plugin Download Link
+							<br>
+							<input type="text" value="https://novamaday.com/dl/ExamplePlugin.jar" required
+							       id="plugin-download-link">
+						</label>
+						<br>
+						<br>
+						<input class="submit" type="submit" value="Add/Update Plugin">
+					</form>
+				</div>
 			</div>
 			<div th:unless="${loggedIn}">
 				<h1>Please login to continue</h1>
