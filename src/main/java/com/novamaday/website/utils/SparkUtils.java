@@ -106,6 +106,11 @@ public class SparkUtils {
 
         //Wiki pages
         get("/wiki", (rq, rs) -> new ModelAndView(AccountHandler.getHandler().getAccount(rq.session().id()), "pages/wiki/index"), new ThymeleafTemplateEngine());
+        path("/wiki/*", () -> {
+            path("plugins/*", () -> {
+                get("NovaLib", (rq, rs) -> new ModelAndView(AccountHandler.getHandler().getAccount(rq.session().id()), "pages/wiki/plugins/NovaLib/overview"), new ThymeleafTemplateEngine());
+            });
+        });
 
         //Policy pages
         get("/policy/privacy", (rq, rs) -> new ModelAndView(AccountHandler.getHandler().getAccount(rq.session().id()), "pages/policy/privacy"), new ThymeleafTemplateEngine());

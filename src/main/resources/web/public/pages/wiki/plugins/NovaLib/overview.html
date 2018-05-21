@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<!--suppress HtmlUnknownTarget -->
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<!--Meta stuffs-->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="Nova Maday - Programmer and Photographer">
+		<meta property="og:title" content="Nova Maday"/>
+		<meta property="og:url" content="https://www.novamaday.com"/>
+		<meta property="og:description" content="Nova Maday - Programmer and Photographer"/>
+		<!--meta property="og:image" content="I WILL PUT THE LOGO IN WHEN I MAKE IT SMALL"/-->
+		<title>[Wiki] NovaLib -- Nova Maday</title>
+
+		<!--Locally Hosted Files-->
+		<link rel="stylesheet" href="/styles/global.css">
+		<link rel="stylesheet" href="/styles/fix.css">
+		<script src="/scripts/snackbar.js"></script>
+	</head>
+
+	<body>
+		<div class="top-nav">
+			<a href="/">Home</a>
+			<a href="/about">About</a>
+			<a href="/contact">Contact</a>
+			<a href="/portfolio">Portfolio</a>
+			<a href="/art/ap-studio">AP Studio</a>
+			<div class="dropdown">
+				<button class="dropbtn">Plugins
+					<i class="fa fa-caret-down"></i>
+				</button>
+				<div class="dropdown-content">
+					<a href="/plugins/perworldchatplus">PerWorldChatPlus</a>
+					<a href="/plugins/insane-warps">InsaneWarps</a>
+				</div>
+			</div>
+			<a class="active" href="/wiki">Wiki</a>
+			<a href="https://jenkins.novamaday.com" target="_blank">Jenkins</a>
+			<a href="https://www.patreon.com/Novafox" target="_blank">Patreon</a>
+
+			<a class="account" th:if="${loggedIn}" href="/account/logout">Log out</a>
+			<a class="account" th:unless="${loggedIn}" href="/account/register">Register</a>
+			<a class="account" th:unless="${loggedIn}" href="/account/login">Log In</a>
+		</div>
+
+		<div id="content">
+			<h1>[Wiki] NovaLib | Overview</h1>
+			<p>
+				NovaLib is an API and library for Bukkit and Bungee plugins to build upon. Designed to be simple to use
+				and install without sacrificing any functionality or features.
+				<br>
+				NovaLib requires no additional dependencies or plugins in order to function and is completely
+				self-contained.
+				<br>
+				<br>
+				I will add a feature list and everything here, just give me some time please.
+				<!--TODO: Add features list and shit-->
+			</p>
+		</div>
+
+		<div id="snackbar"></div>
+	</body>
+
+	<footer id="footer">
+		<p><span th:text="'© Nova Maday ' + ${year} + '. All rights reserved.'"></span><span> | </span><a
+				href="/policy/privacy">Privacy Policy</a></p>
+	</footer>
+</html>
