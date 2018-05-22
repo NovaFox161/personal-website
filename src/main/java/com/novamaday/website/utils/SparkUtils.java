@@ -104,14 +104,6 @@ public class SparkUtils {
         get("/plugins/perworldchatplus", (rq, rs) -> new ModelAndView(AccountHandler.getHandler().getAccount(rq.session().id()), "pages/plugins/perworldchatplus"), new ThymeleafTemplateEngine());
         get("plugins/insane-warps", (rq, rs) -> new ModelAndView(AccountHandler.getHandler().getAccount(rq.session().id()), "pages/plugins/insanewarps"), new ThymeleafTemplateEngine());
 
-        //Wiki pages
-        get("/wiki", (rq, rs) -> new ModelAndView(AccountHandler.getHandler().getAccount(rq.session().id()), "pages/wiki/index"), new ThymeleafTemplateEngine());
-        path("/wiki/*", () -> {
-            path("plugins/*", () -> {
-                get("NovaLib", (rq, rs) -> new ModelAndView(AccountHandler.getHandler().getAccount(rq.session().id()), "pages/wiki/plugins/NovaLib/overview"), new ThymeleafTemplateEngine());
-            });
-        });
-
         //Policy pages
         get("/policy/privacy", (rq, rs) -> new ModelAndView(AccountHandler.getHandler().getAccount(rq.session().id()), "pages/policy/privacy"), new ThymeleafTemplateEngine());
 
