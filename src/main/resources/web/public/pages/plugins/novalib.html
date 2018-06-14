@@ -10,17 +10,10 @@
 		<meta property="og:url" content="https://www.novamaday.com"/>
 		<meta property="og:description" content="Nova Maday - Programmer and Photographer"/>
 		<!--meta property="og:image" content="I WILL PUT THE LOGO IN WHEN I MAKE IT SMALL"/-->
-		<title>Register -- Nova Maday</title>
+		<title>NovaLib -- Nova Maday</title>
 
 		<!--Locally Hosted Files-->
 		<link rel="stylesheet" href="/styles/global.css">
-		<link rel="stylesheet" href="/styles/fix.css">
-		<script src="/scripts/snackbar.js"></script>
-		<script src="/scripts/account/register.js"></script>
-
-		<!--Externally hosted-->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<script src='https://www.google.com/recaptcha/api.js'></script>
 	</head>
 
 	<body>
@@ -36,7 +29,7 @@
 				<div class="dropdown-content">
 					<a href="/plugins/perworldchatplus">PerWorldChatPlus</a>
 					<a href="/plugins/insane-warps">InsaneWarps</a>
-					<a href="/plugins/novalib">NovaLib</a>
+					<a class="active" href="/plugins/novalib">NovaLib</a>
 				</div>
 			</div>
 			<div class="dropdown">
@@ -57,49 +50,14 @@
 		</div>
 
 		<div id="content">
-			<div th:if="${loggedIn}">
-				<h1>You are already logged in. why are you even here?</h1>
-			</div>
-			<div th:unless="${loggedIn}">
-				<h1>Register</h1>
-				<form id="register" action="javascript:onSubmit()">
-					<label>Email
-						<br>
-						<input type="email" id="email" required>
-					</label>
-					<br>
-					<br>
-					<label>Username
-						<br>
-						<input type="text" maxlength="64" id="username" required>
-					</label>
-					<br>
-					<br>
-					<label>Password (Min. 8 characters)
-						<br>
-						<input type="password" minlength="8" id="password" required>
-					</label>
-					<br>
-					<br>
-					<label>Confirm Password
-						<br>
-						<input type="password" minlength="8" id="password-confirm" oninput="checkValidity(this)"
-						       required>
-					</label>
-					<br>
-					<br>
-					<div class="g-recaptcha" data-sitekey="6Lea-lQUAAAAAJ6baxR5Gz8hlcbJyfZPhVvAO9cR"></div>
-					<br>
-					<br>
-					<input class="submit" type="submit" value="Register Account">
-				</form>
-				<br>
-				<br>
-				<h3><span>Already have an account? </span><a href="/account/login">Login</a></h3>
-			</div>
+			<h1>NovaLib</h1>
+			<p>Hey all! This page is a work in progress. For current information, visit the Wiki page for NovaLib!
+			</p>
+			<a href="https://wiki.novamaday.com/plugins/novalib/start">
+				<button>NovaLib Wiki</button>
+			</a>
 		</div>
 
-		<div id="snackbar"></div>
 	</body>
 
 	<footer id="footer">
