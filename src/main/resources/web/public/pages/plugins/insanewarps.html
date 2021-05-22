@@ -1,309 +1,304 @@
 <!DOCTYPE HTML>
 <!--suppress HtmlUnknownTarget -->
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<!--Meta stuffs-->
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="description" content="Nova Maday - Programmer and Photographer">
-		<meta property="og:title" content="Nova Maday"/>
-		<meta property="og:url" content="https://www.novamaday.com"/>
-		<meta property="og:description" content="Nova Maday - Programmer and Photographer"/>
-		<!--meta property="og:image" content="I WILL PUT THE LOGO IN WHEN I MAKE IT SMALL"/-->
-		<title>InsaneWarps -- Nova Maday</title>
+<head>
+    <!--Meta stuffs-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Nova Maday - Programmer and Photographer">
+    <meta property="og:title" content="Nova Maday"/>
+    <meta property="og:url" content="https://www.novamaday.com"/>
+    <meta property="og:description" content="Nova Maday - Programmer and Photographer"/>
+    <!--meta property="og:image" content="I WILL PUT THE LOGO IN WHEN I MAKE IT SMALL"/-->
+    <title>InsaneWarps -- Nova Maday</title>
 
-		<!--Locally Hosted Files-->
-		<link rel="stylesheet" href="/styles/global.css">
+    <!--Locally Hosted Files-->
+    <link rel="stylesheet" href="/styles/global.css">
 
-		<!--Externally Hosted Files-->
-		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
-		<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-		<script>initHighlightingOnLoad()</script>
-	</head>
+    <!--Externally Hosted Files-->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script>initHighlightingOnLoad()</script>
+</head>
 
-	<body>
-		<div class="top-nav">
-			<a href="/">Home</a>
-			<a href="/about">About</a>
-			<a href="/contact">Contact</a>
-			<a href="/portfolio">Portfolio</a>
-			<a href="/art/ap-studio">AP Studio</a>
-			<div class="dropdown">
-				<button class="dropbtn">Plugins
-				</button>
-				<div class="dropdown-content">
-					<a href="/plugins/perworldchatplus">PerWorldChatPlus</a>
-					<a class="active" href="/plugins/insane-warps">InsaneWarps</a>
-					<a href="/plugins/novalib">NovaLib</a>
-				</div>
-			</div>
-			<div class="dropdown">
-				<button class="dropbtn">Discord Bots
-				</button>
-				<div class="dropdown-content">
-					<a href="https://www.discalbot.com" target="_blank">DisCal</a>
-					<a href="https://ticketbird.novamaday.com" target="_blank">TicketBird</a>
-				</div>
-			</div>
-			<a href="https://wiki.novamaday.com">Wiki</a>
-			<a href="https://jenkins.dreamexposure.org" target="_blank">Jenkins</a>
-			<a href="https://www.patreon.com/Novafox" target="_blank">Patreon</a>
+<body>
+<div class="top-nav">
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+    <a href="/contact">Contact</a>
+    <a href="/portfolio">Portfolio</a>
+    <a href="/art/ap-studio">AP Studio</a>
+    <div class="dropdown">
+        <button class="dropbtn">Plugins
+        </button>
+        <div class="dropdown-content">
+            <a href="/plugins/perworldchatplus">PerWorldChatPlus</a>
+            <a class="active" href="/plugins/insane-warps">InsaneWarps</a>
+            <a href="/plugins/novalib">NovaLib</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">Discord Bots
+        </button>
+        <div class="dropdown-content">
+            <a href="https://www.discalbot.com" target="_blank">DisCal</a>
+            <a href="https://ticketbird.dreamexposure.org" target="_blank">TicketBird</a>
+        </div>
+    </div>
+    <a href="https://jenkins.dreamexposure.org" target="_blank">Jenkins</a>
+    <a href="https://www.patreon.com/Novafox" target="_blank">Patreon</a>
+</div>
 
-			<a class="account" th:if="${loggedIn}" href="/account/logout">Log out</a>
-			<a class="account" th:unless="${loggedIn}" href="/account/register">Register</a>
-			<a class="account" th:unless="${loggedIn}" href="/account/login">Log In</a>
-		</div>
-
-		<div id="content">
-			<div id="side-nav">
-				<h4>Contents</h4>
-				<a href="/plugins/insane-warps#installation">
-					<button>Installation</button>
-				</a>
-				<br>
-				<a href="/plugins/insane-warps#commands">
-					<button>Commands</button>
-				</a>
-				<br>
-				<a href="/plugins/insane-warps#permissions">
-					<button>Permissions</button>
-				</a>
-				<br>
-				<a href="/plugins/insane-warps#configuration">
-					<button>Configuration</button>
-				</a>
-				<br>
-				<a href="/plugins/insane-warps#signs">
-					<button>Signs</button>
-				</a>
-				<br>
-				<a href="/plugins/insane-warps#upcoming">
-					<button>Upcoming Features</button>
-				</a>
-			</div>
+<div id="content">
+    <div id="side-nav">
+        <h4>Contents</h4>
+        <a href="/plugins/insane-warps#installation">
+            <button>Installation</button>
+        </a>
+        <br>
+        <a href="/plugins/insane-warps#commands">
+            <button>Commands</button>
+        </a>
+        <br>
+        <a href="/plugins/insane-warps#permissions">
+            <button>Permissions</button>
+        </a>
+        <br>
+        <a href="/plugins/insane-warps#configuration">
+            <button>Configuration</button>
+        </a>
+        <br>
+        <a href="/plugins/insane-warps#signs">
+            <button>Signs</button>
+        </a>
+        <br>
+        <a href="/plugins/insane-warps#upcoming">
+            <button>Upcoming Features</button>
+        </a>
+    </div>
 
 
-			<h1>InsaneWarps</h1>
-			<p>
-				InsaneWarps introduces better handling of warps, spawns, tpr and more with new unique mechanics.
-				Locations can easily be set and controlled with permissions and delays. Signs can be used for quick
-				commandless teleports. And add more immersive features like a GTA 5 style teleportation!
-			</p>
+    <h1>InsaneWarps</h1>
+    <p>
+        InsaneWarps introduces better handling of warps, spawns, tpr and more with new unique mechanics.
+        Locations can easily be set and controlled with permissions and delays. Signs can be used for quick
+        commandless teleports. And add more immersive features like a GTA 5 style teleportation!
+    </p>
 
-			<br>
-			<hr>
-			<br>
+    <br>
+    <hr>
+    <br>
 
-			<h3 id="installation">Installation</h3>
-			<p>
-				Simply download the latest version of InsaneWarps and drop it into your plugins folder. Restart the
-				server and everything is ready to go with no configuration needed!
+    <h3 id="installation">Installation</h3>
+    <p>
+        Simply download the latest version of InsaneWarps and drop it into your plugins folder. Restart the
+        server and everything is ready to go with no configuration needed!
 
-				If you want to integrate economy with InsaneWarps, you will need to download and install Vault.
-			</p>
+        If you want to integrate economy with InsaneWarps, you will need to download and install Vault.
+    </p>
 
-			<br>
-			<hr>
-			<br>
+    <br>
+    <hr>
+    <br>
 
-			<h3 id="commands">Commands</h3>
-			<table style="border-color: #ef0813;" border="#ef0813" cellspacing="0" cellpadding="4">
-				<tbody>
-				<tr>
-					<th>Command Syntax</th>
-					<th>Example</th>
-					<th>Description</th>
-					<th>Permission</th>
-				</tr>
-				<tr>
-					<td>/setwarp [name]</td>
-					<td>/setwarp shop</td>
-					<td>Sets a new warp with the specified name</td>
-					<td>iw.warp.setwarp</td>
-				</tr>
-				<tr>
-					<td>/delwarp [name]</td>
-					<td>/delwarp shop</td>
-					<td>Deletes the specified warp</td>
-					<td>iw.warp.delwarp</td>
-				</tr>
-				<tr>
-					<td>/warp (name)</td>
-					<td>/warp shop</td>
-					<td>Teleports you to the warp</td>
-					<td>iw.warp.* OR iw.warp.[name]</td>
-				</tr>
-				<tr>
-					<td>/sethub [name]</td>
-					<td>/sethub shop</td>
-					<td>Sets a new hub with the specified name</td>
-					<td>iw.hub.sethub</td>
-				</tr>
-				<tr>
-					<td>/delhub [name]</td>
-					<td>/delhub shop</td>
-					<td>Deletes the specified hub</td>
-					<td>iw.hub.delhub</td>
-				</tr>
-				<tr>
-					<td>/hub (name)</td>
-					<td>/hub shop</td>
-					<td>Teleports you to the hub</td>
-					<td>iw.hub.* OR iw.hub.[name]</td>
-				</tr>
-				<tr>
-					<td>/setlobby [name]</td>
-					<td>/setlobby shop</td>
-					<td>Sets a new lobby with the specified name</td>
-					<td>iw.lobby.setlobby</td>
-				</tr>
-				<tr>
-					<td>/dellobby [name]</td>
-					<td>/dellobby shop</td>
-					<td>Deletes the specified lobby</td>
-					<td>iw.lobby.dellobby</td>
-				</tr>
-				<tr>
-					<td>/lobby (name)</td>
-					<td>/lobby shop</td>
-					<td>Teleports you to the lobby</td>
-					<td>iw.lobby.* OR iw.lobby.[name]</td>
-				</tr>
-				<tr>
-					<td>/setspawn</td>
-					<td>/setspawn</td>
-					<td>Sets the spawn point for the world</td>
-					<td>iw.spawn.setspawn</td>
-				</tr>
-				<tr>
-					<td>/delspawn [world]</td>
-					<td>/dellobby world</td>
-					<td>Deletes the specified world's spawn point</td>
-					<td>iw.spawn.delspawn</td>
-				</tr>
-				<tr>
-					<td>/spawn (world)</td>
-					<td>/spawn world</td>
-					<td>Teleports you to the world's spawn point</td>
-					<td>iw.spawn.* or iw.spawn.[world]</td>
-				</tr>
-				<tr>
-					<td>/tpr</td>
-					<td>/tpr</td>
-					<td>Teleports you to a random location within the world</td>
-					<td>iw.tpr.use</td>
-				</tr>
-				</tbody>
-			</table>
+    <h3 id="commands">Commands</h3>
+    <table style="border-color: #ef0813;" border="#ef0813" cellspacing="0" cellpadding="4">
+        <tbody>
+        <tr>
+            <th>Command Syntax</th>
+            <th>Example</th>
+            <th>Description</th>
+            <th>Permission</th>
+        </tr>
+        <tr>
+            <td>/setwarp [name]</td>
+            <td>/setwarp shop</td>
+            <td>Sets a new warp with the specified name</td>
+            <td>iw.warp.setwarp</td>
+        </tr>
+        <tr>
+            <td>/delwarp [name]</td>
+            <td>/delwarp shop</td>
+            <td>Deletes the specified warp</td>
+            <td>iw.warp.delwarp</td>
+        </tr>
+        <tr>
+            <td>/warp (name)</td>
+            <td>/warp shop</td>
+            <td>Teleports you to the warp</td>
+            <td>iw.warp.* OR iw.warp.[name]</td>
+        </tr>
+        <tr>
+            <td>/sethub [name]</td>
+            <td>/sethub shop</td>
+            <td>Sets a new hub with the specified name</td>
+            <td>iw.hub.sethub</td>
+        </tr>
+        <tr>
+            <td>/delhub [name]</td>
+            <td>/delhub shop</td>
+            <td>Deletes the specified hub</td>
+            <td>iw.hub.delhub</td>
+        </tr>
+        <tr>
+            <td>/hub (name)</td>
+            <td>/hub shop</td>
+            <td>Teleports you to the hub</td>
+            <td>iw.hub.* OR iw.hub.[name]</td>
+        </tr>
+        <tr>
+            <td>/setlobby [name]</td>
+            <td>/setlobby shop</td>
+            <td>Sets a new lobby with the specified name</td>
+            <td>iw.lobby.setlobby</td>
+        </tr>
+        <tr>
+            <td>/dellobby [name]</td>
+            <td>/dellobby shop</td>
+            <td>Deletes the specified lobby</td>
+            <td>iw.lobby.dellobby</td>
+        </tr>
+        <tr>
+            <td>/lobby (name)</td>
+            <td>/lobby shop</td>
+            <td>Teleports you to the lobby</td>
+            <td>iw.lobby.* OR iw.lobby.[name]</td>
+        </tr>
+        <tr>
+            <td>/setspawn</td>
+            <td>/setspawn</td>
+            <td>Sets the spawn point for the world</td>
+            <td>iw.spawn.setspawn</td>
+        </tr>
+        <tr>
+            <td>/delspawn [world]</td>
+            <td>/dellobby world</td>
+            <td>Deletes the specified world's spawn point</td>
+            <td>iw.spawn.delspawn</td>
+        </tr>
+        <tr>
+            <td>/spawn (world)</td>
+            <td>/spawn world</td>
+            <td>Teleports you to the world's spawn point</td>
+            <td>iw.spawn.* or iw.spawn.[world]</td>
+        </tr>
+        <tr>
+            <td>/tpr</td>
+            <td>/tpr</td>
+            <td>Teleports you to a random location within the world</td>
+            <td>iw.tpr.use</td>
+        </tr>
+        </tbody>
+    </table>
 
-			<br>
-			<hr>
-			<br>
+    <br>
+    <hr>
+    <br>
 
-			<h3 id="permissions">Permissions</h3>
-			<table style="border-color: #ef0813;" border="#ef0813" cellspacing="0" cellpadding="4">
-				<tbody>
-				<tr>
-					<th>Permission</th>
-					<th>Description</th>
-					<th>Default</th>
-				</tr>
-				<tr>
-					<td>iw.econ.bypass</td>
-					<td>Allows the player to bypass the cost of a teleport</td>
-					<td>op</td>
-				</tr>
-				<tr>
-					<td>iw.sign.place</td>
-					<td>Allows placing of InsaneWarp signs</td>
-					<td>op</td>
-				</tr>
-				<tr>
-					<td>iw.warp.ignoredelay</td>
-					<td>Allows the player to bypass warp delay</td>
-					<td>op</td>
-				</tr>
-				<tr>
-					<td>iw.warp.setwarp</td>
-					<td>Allows the player to set a new warp location</td>
-					<td>op</td>
-				</tr>
-				<tr>
-					<td>iw.warp.delwarp</td>
-					<td>Allows the player to delete a warp location</td>
-					<td>op</td>
-				</tr>
-				<tr>
-					<td>iw.hub.ignoredelay</td>
-					<td>Allows the player to bypass hub delay</td>
-					<td>op</td>
-				</tr>
-				<tr>
-					<td>iw.hub.sethub</td>
-					<td>Allows the player to set a new hub location</td>
-					<td>op</td>
-				</tr>
-				<tr>
-					<td>iw.hub.delhub</td>
-					<td>Allows the player to delete a hub location</td>
-					<td>op</td>
-				</tr>
-				<tr>
-					<td>iw.lobby.ignoredelay</td>
-					<td>Allows the player to bypass lobby delay</td>
-					<td>op</td>
-				</tr>
-				<tr>
-					<td>iw.lobby.setlobby</td>
-					<td>Allows the player to set a new lobby location</td>
-					<td>op</td>
-				</tr>
-				<tr>
-					<td>iw.lobby.delete</td>
-					<td>Allows the player to delete a lobby location</td>
-					<td>op</td>
-				</tr>
-				<tr>
-					<td>iw.spawn.ignoredelay</td>
-					<td>Allows the player to bypass spawn delay</td>
-					<td>op</td>
-				</tr>
-				<tr>
-					<td>iw.spawn.setspawn</td>
-					<td>Allows the player to set a new spawn location</td>
-					<td>op</td>
-				</tr>
-				<tr>
-					<td>iw.spawn.delspawn</td>
-					<td>Allows the player to delete a spawn location</td>
-					<td>op</td>
-				</tr>
-				<tr>
-					<td>iw.tpr.use</td>
-					<td>Allows the player to use the tpr command</td>
-					<td>true</td>
-				</tr>
-				<tr>
-					<td>iw.tpr.ignoredelay</td>
-					<td>Allows the player to bypass tpr delay</td>
-					<td>op</td>
-				</tr>
-				<tr>
-					<td>iw.tpr.ignorecooldown</td>
-					<td>Allows the player to bypass tpr cooldown</td>
-					<td>op</td>
-				</tr>
-				</tbody>
-			</table>
+    <h3 id="permissions">Permissions</h3>
+    <table style="border-color: #ef0813;" border="#ef0813" cellspacing="0" cellpadding="4">
+        <tbody>
+        <tr>
+            <th>Permission</th>
+            <th>Description</th>
+            <th>Default</th>
+        </tr>
+        <tr>
+            <td>iw.econ.bypass</td>
+            <td>Allows the player to bypass the cost of a teleport</td>
+            <td>op</td>
+        </tr>
+        <tr>
+            <td>iw.sign.place</td>
+            <td>Allows placing of InsaneWarp signs</td>
+            <td>op</td>
+        </tr>
+        <tr>
+            <td>iw.warp.ignoredelay</td>
+            <td>Allows the player to bypass warp delay</td>
+            <td>op</td>
+        </tr>
+        <tr>
+            <td>iw.warp.setwarp</td>
+            <td>Allows the player to set a new warp location</td>
+            <td>op</td>
+        </tr>
+        <tr>
+            <td>iw.warp.delwarp</td>
+            <td>Allows the player to delete a warp location</td>
+            <td>op</td>
+        </tr>
+        <tr>
+            <td>iw.hub.ignoredelay</td>
+            <td>Allows the player to bypass hub delay</td>
+            <td>op</td>
+        </tr>
+        <tr>
+            <td>iw.hub.sethub</td>
+            <td>Allows the player to set a new hub location</td>
+            <td>op</td>
+        </tr>
+        <tr>
+            <td>iw.hub.delhub</td>
+            <td>Allows the player to delete a hub location</td>
+            <td>op</td>
+        </tr>
+        <tr>
+            <td>iw.lobby.ignoredelay</td>
+            <td>Allows the player to bypass lobby delay</td>
+            <td>op</td>
+        </tr>
+        <tr>
+            <td>iw.lobby.setlobby</td>
+            <td>Allows the player to set a new lobby location</td>
+            <td>op</td>
+        </tr>
+        <tr>
+            <td>iw.lobby.delete</td>
+            <td>Allows the player to delete a lobby location</td>
+            <td>op</td>
+        </tr>
+        <tr>
+            <td>iw.spawn.ignoredelay</td>
+            <td>Allows the player to bypass spawn delay</td>
+            <td>op</td>
+        </tr>
+        <tr>
+            <td>iw.spawn.setspawn</td>
+            <td>Allows the player to set a new spawn location</td>
+            <td>op</td>
+        </tr>
+        <tr>
+            <td>iw.spawn.delspawn</td>
+            <td>Allows the player to delete a spawn location</td>
+            <td>op</td>
+        </tr>
+        <tr>
+            <td>iw.tpr.use</td>
+            <td>Allows the player to use the tpr command</td>
+            <td>true</td>
+        </tr>
+        <tr>
+            <td>iw.tpr.ignoredelay</td>
+            <td>Allows the player to bypass tpr delay</td>
+            <td>op</td>
+        </tr>
+        <tr>
+            <td>iw.tpr.ignorecooldown</td>
+            <td>Allows the player to bypass tpr cooldown</td>
+            <td>op</td>
+        </tr>
+        </tbody>
+    </table>
 
-			<br>
-			<hr>
-			<br>
+    <br>
+    <hr>
+    <br>
 
-			<h3 id="configuration">Configuration</h3>
-			<p>The config.yml is simple to understand and setup. Its default values are set to balance existing
-				mechanics with new ones</p>
-			<pre><code class="yaml hljs">
+    <h3 id="configuration">Configuration</h3>
+    <p>The config.yml is simple to understand and setup. Its default values are set to balance existing
+        mechanics with new ones</p>
+    <pre><code class="yaml hljs">
 #Don't change this, we use this for handling config changes
 Config Version: 1.0
 #Update settings
@@ -380,11 +375,11 @@ Teleport:
       1_9-1_12: ENTITY_EXPERIENCE_ORB_PICKUP
 			</code></pre>
 
-			<br>
-			<br>
+    <br>
+    <br>
 
-			<p>For the world shares, a very simple format is used.</p>
-			<pre><code class="yaml hljs">
+    <p>For the world shares, a very simple format is used.</p>
+    <pre><code class="yaml hljs">
 #default values
 world_nether: world
 world_the_end: world
@@ -393,40 +388,40 @@ world_the_end: world
 world_name_from: world_name_to
 			</code></pre>
 
-			<br>
-			<hr>
-			<br>
+    <br>
+    <hr>
+    <br>
 
-			<h3 id="signs">Signs</h3>
-			<p>InsaneWarps offers signs for more immersive use rather than commands.</p>
-			<a href="/assets/images/plugins/insane-warps/iw-sign-format.jpg">
-				<img src="/assets/images/plugins/insane-warps/iw-sign-format.jpg" alt="InsaneWarps Sign Format">
-			</a>
+    <h3 id="signs">Signs</h3>
+    <p>InsaneWarps offers signs for more immersive use rather than commands.</p>
+    <a href="/assets/images/plugins/insane-warps/iw-sign-format.jpg">
+        <img src="/assets/images/plugins/insane-warps/iw-sign-format.jpg" alt="InsaneWarps Sign Format">
+    </a>
 
-			<br>
-			<hr>
-			<br>
+    <br>
+    <hr>
+    <br>
 
-			<h3 id="upcoming">Upcoming Features</h3>
-			<p>
-				- Inventory Menus
-				<br>
-				- Teleport blocks (like signs, but cool looking blocks)
-				<br>
-				- Teleport others
-				<br>
-				- Commands from the console
-				<br>
-				- Particle effects
-				<br>
-				- And more!
-			</p>
-		</div>
+    <h3 id="upcoming">Upcoming Features</h3>
+    <p>
+        - Inventory Menus
+        <br>
+        - Teleport blocks (like signs, but cool looking blocks)
+        <br>
+        - Teleport others
+        <br>
+        - Commands from the console
+        <br>
+        - Particle effects
+        <br>
+        - And more!
+    </p>
+</div>
 
-	</body>
+</body>
 
-	<footer id="footer">
-		<p><span th:text="'© Nova Maday ' + ${year} + '. All rights reserved.'"></span><span> | </span><a
-				href="/policy/privacy">Privacy Policy</a></p>
-	</footer>
+<footer id="footer">
+    <p><span th:text="'© Nova Maday ' + ${year} + '. All rights reserved.'"></span><span> | </span><a
+            href="/policy/privacy">Privacy Policy</a></p>
+</footer>
 </html>

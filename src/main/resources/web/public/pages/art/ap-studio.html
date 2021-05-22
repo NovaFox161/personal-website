@@ -1,170 +1,165 @@
 <!DOCTYPE HTML>
 <!--suppress HtmlUnknownTarget -->
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<!--Meta stuffs-->
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="description" content="Nova Maday - Programmer and Photographer">
-		<meta property="og:title" content="Nova Maday"/>
-		<meta property="og:url" content="https://www.novamaday.com"/>
-		<meta property="og:description" content="Nova Maday - Programmer and Photographer"/>
-		<!--meta property="og:image" content="I WILL PUT THE LOGO IN WHEN I MAKE IT SMALL"/-->
-		<title>AP Studio -- Nova Maday</title>
+<head>
+    <!--Meta stuffs-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Nova Maday - Programmer and Photographer">
+    <meta property="og:title" content="Nova Maday"/>
+    <meta property="og:url" content="https://www.novamaday.com"/>
+    <meta property="og:description" content="Nova Maday - Programmer and Photographer"/>
+    <!--meta property="og:image" content="I WILL PUT THE LOGO IN WHEN I MAKE IT SMALL"/-->
+    <title>AP Studio -- Nova Maday</title>
 
-		<!--Locally Hosted Files-->
-		<link rel="stylesheet" href="/styles/global.css">
-	</head>
+    <!--Locally Hosted Files-->
+    <link rel="stylesheet" href="/styles/global.css">
+</head>
 
-	<body>
-		<div class="top-nav">
-			<a href="/">Home</a>
-			<a href="/about">About</a>
-			<a href="/contact">Contact</a>
-			<a href="/portfolio">Portfolio</a>
-			<a class="active" href="/art/ap-studio">AP Studio</a>
-			<div class="dropdown">
-				<button class="dropbtn">Plugins
-				</button>
-				<div class="dropdown-content">
-					<a href="/plugins/perworldchatplus">PerWorldChatPlus</a>
-					<a href="/plugins/insane-warps">InsaneWarps</a>
-					<a href="/plugins/novalib">NovaLib</a>
-				</div>
-			</div>
-			<div class="dropdown">
-				<button class="dropbtn">Discord Bots
-				</button>
-				<div class="dropdown-content">
-					<a href="https://www.discalbot.com" target="_blank">DisCal</a>
-					<a href="https://ticketbird.novamaday.com" target="_blank">TicketBird</a>
-				</div>
-			</div>
-			<a href="https://wiki.novamaday.com">Wiki</a>
-			<a href="https://jenkins.dreamexposure.org" target="_blank">Jenkins</a>
-			<a href="https://www.patreon.com/Novafox" target="_blank">Patreon</a>
+<body>
+<div class="top-nav">
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+    <a href="/contact">Contact</a>
+    <a href="/portfolio">Portfolio</a>
+    <a class="active" href="/art/ap-studio">AP Studio</a>
+    <div class="dropdown">
+        <button class="dropbtn">Plugins
+        </button>
+        <div class="dropdown-content">
+            <a href="/plugins/perworldchatplus">PerWorldChatPlus</a>
+            <a href="/plugins/insane-warps">InsaneWarps</a>
+            <a href="/plugins/novalib">NovaLib</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">Discord Bots
+        </button>
+        <div class="dropdown-content">
+            <a href="https://www.discalbot.com" target="_blank">DisCal</a>
+            <a href="https://ticketbird.dreamexposure.org" target="_blank">TicketBird</a>
+        </div>
+    </div>
+    <a href="https://jenkins.dreamexposure.org" target="_blank">Jenkins</a>
+    <a href="https://www.patreon.com/Novafox" target="_blank">Patreon</a>
+</div>
 
-			<a class="account" th:if="${loggedIn}" href="/account/logout">Log out</a>
-			<a class="account" th:unless="${loggedIn}" href="/account/register">Register</a>
-			<a class="account" th:unless="${loggedIn}" href="/account/login">Log In</a>
-		</div>
+<div style="margin-left: 10%; margin-right: 10%;">
+    <h1>AP Studio 2017-2018</h1>
+    <div class="simple-gallery-wrapper" style="float: left">
+        <div class="image-wrapper">
+            <div style="max-width: 350px;float: left; margin-left: 10px; margin-right: 10px;">
+                <h3>Breadth</h3>
+                <a href="/assets/images/art/ap-studio/Breadth/1.jpg">
+                    <img src="/assets/images/art/ap-studio/Breadth/1.jpg" alt="1">
+                </a>
 
-		<div style="margin-left: 10%; margin-right: 10%;">
-			<h1>AP Studio 2017-2018</h1>
-			<div class="simple-gallery-wrapper" style="float: left">
-				<div class="image-wrapper">
-					<div style="max-width: 350px;float: left; margin-left: 10px; margin-right: 10px;">
-						<h3>Breadth</h3>
-						<a href="/assets/images/art/ap-studio/Breadth/1.jpg">
-							<img src="/assets/images/art/ap-studio/Breadth/1.jpg" alt="1">
-						</a>
+                <a href="/assets/images/art/ap-studio/Breadth/2.jpg">
+                    <img src="/assets/images/art/ap-studio/Breadth/2.jpg" alt="2">
+                </a>
 
-						<a href="/assets/images/art/ap-studio/Breadth/2.jpg">
-							<img src="/assets/images/art/ap-studio/Breadth/2.jpg" alt="2">
-						</a>
+                <a href="/assets/images/art/ap-studio/Breadth/3.jpg">
+                    <img src="/assets/images/art/ap-studio/Breadth/3.jpg" alt="3">
+                </a>
 
-						<a href="/assets/images/art/ap-studio/Breadth/3.jpg">
-							<img src="/assets/images/art/ap-studio/Breadth/3.jpg" alt="3">
-						</a>
+                <a href="/assets/images/art/ap-studio/Breadth/4.jpg">
+                    <img src="/assets/images/art/ap-studio/Breadth/4.jpg" alt="4">
+                </a>
 
-						<a href="/assets/images/art/ap-studio/Breadth/4.jpg">
-							<img src="/assets/images/art/ap-studio/Breadth/4.jpg" alt="4">
-						</a>
+                <a href="/assets/images/art/ap-studio/Breadth/5.jpg">
+                    <img src="/assets/images/art/ap-studio/Breadth/5.jpg" alt="5">
+                </a>
 
-						<a href="/assets/images/art/ap-studio/Breadth/5.jpg">
-							<img src="/assets/images/art/ap-studio/Breadth/5.jpg" alt="5">
-						</a>
+                <a href="/assets/images/art/ap-studio/Breadth/6.jpg">
+                    <img src="/assets/images/art/ap-studio/Breadth/6.jpg" alt="6">
+                </a>
 
-						<a href="/assets/images/art/ap-studio/Breadth/6.jpg">
-							<img src="/assets/images/art/ap-studio/Breadth/6.jpg" alt="6">
-						</a>
+                <a href="/assets/images/art/ap-studio/Breadth/7.jpg">
+                    <img src="/assets/images/art/ap-studio/Breadth/7.jpg" alt="7">
+                </a>
 
-						<a href="/assets/images/art/ap-studio/Breadth/7.jpg">
-							<img src="/assets/images/art/ap-studio/Breadth/7.jpg" alt="7">
-						</a>
+                <a href="/assets/images/art/ap-studio/Breadth/8.jpg">
+                    <img src="/assets/images/art/ap-studio/Breadth/8w.jpg" alt="8">
+                </a>
 
-						<a href="/assets/images/art/ap-studio/Breadth/8.jpg">
-							<img src="/assets/images/art/ap-studio/Breadth/8w.jpg" alt="8">
-						</a>
+                <a href="/assets/images/art/ap-studio/Breadth/9.jpg">
+                    <img src="/assets/images/art/ap-studio/Breadth/9.jpg" alt="9">
+                </a>
 
-						<a href="/assets/images/art/ap-studio/Breadth/9.jpg">
-							<img src="/assets/images/art/ap-studio/Breadth/9.jpg" alt="9">
-						</a>
+                <a href="/assets/images/art/ap-studio/Breadth/10.jpg">
+                    <img src="/assets/images/art/ap-studio/Breadth/10.jpg" alt="10">
+                </a>
 
-						<a href="/assets/images/art/ap-studio/Breadth/10.jpg">
-							<img src="/assets/images/art/ap-studio/Breadth/10.jpg" alt="10">
-						</a>
+                <a href="/assets/images/art/ap-studio/Breadth/11.jpg">
+                    <img src="/assets/images/art/ap-studio/Breadth/11.jpg" alt="11">
+                </a>
 
-						<a href="/assets/images/art/ap-studio/Breadth/11.jpg">
-							<img src="/assets/images/art/ap-studio/Breadth/11.jpg" alt="11">
-						</a>
+                <a href="/assets/images/art/ap-studio/Breadth/12.jpg">
+                    <img src="/assets/images/art/ap-studio/Breadth/12.jpg" alt="12">
+                </a>
+            </div>
+        </div>
+    </div>
 
-						<a href="/assets/images/art/ap-studio/Breadth/12.jpg">
-							<img src="/assets/images/art/ap-studio/Breadth/12.jpg" alt="12">
-						</a>
-					</div>
-				</div>
-			</div>
+    <div class="simple-gallery-wrapper" style="float: right">
+        <div class="image-wrapper">
+            <div style="max-width: 350px;float: left; margin-left: 10px; margin-right: 10px;">
+                <h3>Concentration</h3>
+                <a href="/assets/images/art/ap-studio/Concentration/1.jpg">
+                    <img src="/assets/images/art/ap-studio/Concentration/1.jpg" alt="1">
+                </a>
 
-			<div class="simple-gallery-wrapper" style="float: right">
-				<div class="image-wrapper">
-					<div style="max-width: 350px;float: left; margin-left: 10px; margin-right: 10px;">
-						<h3>Concentration</h3>
-						<a href="/assets/images/art/ap-studio/Concentration/1.jpg">
-							<img src="/assets/images/art/ap-studio/Concentration/1.jpg" alt="1">
-						</a>
+                <a href="/assets/images/art/ap-studio/Concentration/2.jpg">
+                    <img src="/assets/images/art/ap-studio/Concentration/2.jpg" alt="2">
+                </a>
 
-						<a href="/assets/images/art/ap-studio/Concentration/2.jpg">
-							<img src="/assets/images/art/ap-studio/Concentration/2.jpg" alt="2">
-						</a>
+                <a href="/assets/images/art/ap-studio/Concentration/3.jpg">
+                    <img src="/assets/images/art/ap-studio/Concentration/3.jpg" alt="3">
+                </a>
 
-						<a href="/assets/images/art/ap-studio/Concentration/3.jpg">
-							<img src="/assets/images/art/ap-studio/Concentration/3.jpg" alt="3">
-						</a>
+                <a href="/assets/images/art/ap-studio/Concentration/4.jpg">
+                    <img src="/assets/images/art/ap-studio/Concentration/4.jpg" alt="4">
+                </a>
 
-						<a href="/assets/images/art/ap-studio/Concentration/4.jpg">
-							<img src="/assets/images/art/ap-studio/Concentration/4.jpg" alt="4">
-						</a>
+                <a href="/assets/images/art/ap-studio/Concentration/5.jpg">
+                    <img src="/assets/images/art/ap-studio/Concentration/5.jpg" alt="5">
+                </a>
 
-						<a href="/assets/images/art/ap-studio/Concentration/5.jpg">
-							<img src="/assets/images/art/ap-studio/Concentration/5.jpg" alt="5">
-						</a>
+                <a href="/assets/images/art/ap-studio/Concentration/6.jpg">
+                    <img src="/assets/images/art/ap-studio/Concentration/6.jpg" alt="6">
+                </a>
 
-						<a href="/assets/images/art/ap-studio/Concentration/6.jpg">
-							<img src="/assets/images/art/ap-studio/Concentration/6.jpg" alt="6">
-						</a>
+                <a href="/assets/images/art/ap-studio/Concentration/7.jpg">
+                    <img src="/assets/images/art/ap-studio/Concentration/7.jpg" alt="7">
+                </a>
 
-						<a href="/assets/images/art/ap-studio/Concentration/7.jpg">
-							<img src="/assets/images/art/ap-studio/Concentration/7.jpg" alt="7">
-						</a>
+                <a href="/assets/images/art/ap-studio/Concentration/8.jpg">
+                    <img src="/assets/images/art/ap-studio/Concentration/8.jpg" alt="8">
+                </a>
 
-						<a href="/assets/images/art/ap-studio/Concentration/8.jpg">
-							<img src="/assets/images/art/ap-studio/Concentration/8.jpg" alt="8">
-						</a>
+                <a href="/assets/images/art/ap-studio/Concentration/9.jpg">
+                    <img src="/assets/images/art/ap-studio/Concentration/9.jpg" alt="9">
+                </a>
 
-						<a href="/assets/images/art/ap-studio/Concentration/9.jpg">
-							<img src="/assets/images/art/ap-studio/Concentration/9.jpg" alt="9">
-						</a>
+                <a href="/assets/images/art/ap-studio/Concentration/10.jpg">
+                    <img src="/assets/images/art/ap-studio/Concentration/10.jpg" alt="10">
+                </a>
 
-						<a href="/assets/images/art/ap-studio/Concentration/10.jpg">
-							<img src="/assets/images/art/ap-studio/Concentration/10.jpg" alt="10">
-						</a>
+                <a href="/assets/images/art/ap-studio/Concentration/11.jpg">
+                    <img src="/assets/images/art/ap-studio/Concentration/11.jpg" alt="11">
+                </a>
 
-						<a href="/assets/images/art/ap-studio/Concentration/11.jpg">
-							<img src="/assets/images/art/ap-studio/Concentration/11.jpg" alt="11">
-						</a>
+                <a href="/assets/images/art/ap-studio/Concentration/12.jpg">
+                    <img src="/assets/images/art/ap-studio/Concentration/12.jpg" alt="12">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
 
-						<a href="/assets/images/art/ap-studio/Concentration/12.jpg">
-							<img src="/assets/images/art/ap-studio/Concentration/12.jpg" alt="12">
-						</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</body>
-
-	<footer id="footer">
-		<p><span th:text="'© Nova Maday ' + ${year} + '. All rights reserved.'"></span><span> | </span><a
-				href="/policy/privacy">Privacy Policy</a></p>
-	</footer>
+<footer id="footer">
+    <p><span th:text="'© Nova Maday ' + ${year} + '. All rights reserved.'"></span><span> | </span><a
+            href="/policy/privacy">Privacy Policy</a></p>
+</footer>
 </html>
