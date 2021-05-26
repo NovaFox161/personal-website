@@ -1,6 +1,5 @@
 package com.novamaday.website.utils;
 
-import com.novamaday.website.objects.SiteSettings;
 import spark.ModelAndView;
 
 import java.time.LocalDate;
@@ -18,7 +17,7 @@ public class SparkUtils {
     }
 
     public static void initSpark() {
-        port(Integer.parseInt(SiteSettings.PORT.get()));
+        port(8080);
 
         staticFileLocation("/web/public"); // Main site location
 
